@@ -3,7 +3,18 @@
 #graph = {1: [2], 2: [3], 3: [1], 4: [], 5: [4], 6: [4]}
 #graph = {0:[7], 1: [9], 2: [9, 10], 3: [8], 4: [2], 5: [10, 3], 6: [0, 1], 7: [1, 6], 8: [5], 9: [4], 10: [8], 11: [2, 5, 9]}
 #graph = {0: [1, 3], 1: [3], 2: [3, 4], 3: [4], 4: []}
-graph = {0:[1, 3], 1: [2], 2: [0], 3: [4], 4: [5], 5:[]}
+#graph = {0:[1, 3], 1: [2], 2: [0], 3: [4], 4: [5], 5:[]}
+
+def read_file(filename):
+    with open(filename) as file:
+        graph = {}
+        lines = list(file.readlines())
+        for i in lines[0].split():
+            graph[i] = []
+        for i in lines[1:]:
+            graph[i.split()[0]].append(i.split()[1])
+    return graph
+
 
 def reverse_graph(graph):
     reversed_graph = {}
@@ -47,17 +58,10 @@ def kosaraju(graph):
     for vertex in graph.keys():
         if vertex not in primary_order.keys():
             primary_dfs(graph, vertex, [], primary_order, 0)
-    print(primary_order)
     reversed_graph = reverse_graph(graph)
     visited = []
     trees = []
     for vertex in sorted(reversed_graph.keys(), key=lambda x: primary_order[x], reverse=True):
         if vertex not in visited:
             trees.append(secondary_dfs(reversed_graph, vertex, primary_order, visited))
-    print(trees)
-
-kosaraju(graph)
-
-
-
-
+    return trees
