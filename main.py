@@ -65,3 +65,38 @@ def kosaraju(graph):
         if vertex not in visited:
             trees.append(secondary_dfs(reversed_graph, vertex, primary_order, visited))
     return trees
+
+def tarjan_dfs(vertex, graph, time, small_time, stack, visited, sccs, counter):
+    time[vertex] = counter
+    small_time[vertex] = counter
+    stack.append(vertex)
+    visited.append(vertex)
+    for child in graph[vertex]:
+        if vertex not in visited:
+            counter = tarjan_dfs(child, graph, time, small_time, stack, visited, sccs, counter + 1)
+    
+    small_time[vertex] = min([small_time[i] for i in graph[vertex] + [vertex]])
+    if time[vertex] == small_time[vertex]:
+        scc = []
+        current = stack[-1]
+        scc.append(stack.pop())
+        while current != vertex:
+            scc.append(stack.pop())
+        sccs.append(scc)
+    return counter
+        
+ 
+def tarjan(graph):
+    stack  = []
+    time = {}
+    small_time = {}
+    visited = []
+    counter = 0
+    sccs = []
+
+    for vertex in graph.keys():
+        if vertex not in visited:
+            counter = tarjan_dfs(vertex, graph, time, small_time, stack, visited, sccs, counter + 1)
+
+    return sccs
+    
