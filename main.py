@@ -72,15 +72,16 @@ def tarjan_dfs(vertex, graph, time, small_time, stack, visited, sccs, counter):
     stack.append(vertex)
     visited.append(vertex)
     for child in graph[vertex]:
-        if vertex not in visited:
+        if child not in visited:
             counter = tarjan_dfs(child, graph, time, small_time, stack, visited, sccs, counter + 1)
     
-    small_time[vertex] = min([small_time[i] for i in graph[vertex] + [vertex]])
+    small_time[vertex] = min([small_time[i] if i in visited and i in stack else len(graph.keys()) for i in graph[vertex] + [vertex]])#?
     if time[vertex] == small_time[vertex]:
         scc = []
         current = stack[-1]
         scc.append(stack.pop())
         while current != vertex:
+            current = stack[-1]
             scc.append(stack.pop())
         sccs.append(scc)
     return counter

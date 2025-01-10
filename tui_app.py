@@ -1,6 +1,6 @@
 import argparse
 import sys
-from main import read_file, kosaraju
+from main import read_file, kosaraju, tarjan
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Добро пожаловать в программу по поиску Компенент Сильной Связности (КСС) \
@@ -13,4 +13,4 @@ if __name__ == '__main__':
     if namespace.kosaraju or not any((namespace.kosaraju, namespace.tarjan)):
         print(kosaraju(graph))
     elif namespace.tarjan:
-        print('ЫЫЫЫЫЫ')
+        print(tarjan(graph))
