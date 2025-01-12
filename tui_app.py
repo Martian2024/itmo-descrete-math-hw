@@ -1,8 +1,8 @@
-import argparse
 import sys
+import threading
 from main import read_file, kosaraju, tarjan
 
-if __name__ == '__main__':
+def main():
     graph = None
     print('''Добро пожаловать в программу по поиску Компонент Сильной Связности (КСС) при помощи алгоритма Косарайю и Тарьяна! Просим вас внимательно прочитать этот текст! 
 1) Программа принимает граф в качестве txt-файла. Файл должен четко соответствовать формату: 1-я строка - названия вершин через пробел, 
@@ -29,28 +29,36 @@ if __name__ == '__main__':
         if prefered_algorithm == 'b':
             print('Поиск Компонент Сильной Связности (КСС) при помощи алгоритма Тарьяна')
             answer, answer_time = tarjan(graph)
-            print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]))
+            print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]), sep='')
             print(f'Время выполнения алгоритма: {answer_time} мс.')
             print()
 
             print('Поиск Компонент Сильной Связности (КСС) при помощи алгоритма Косарайю')
             answer, answer_time = kosaraju(graph)
-            print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]))
+            print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]), sep='')
             print(f'Время выполнения алгоритма: {answer_time} мс.')
             print()
         elif prefered_algorithm == 'k':
             print('Поиск Компонент Сильной Связности (КСС) при помощи алгоритма Косарайю')
             answer, answer_time = kosaraju(graph)
-            print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]))
+            print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]), sep='')
             print(f'Время выполнения алгоритма: {answer_time} мс.')
             print()
         elif prefered_algorithm == 't':
             print('Поиск Компонент Сильной Связности (КСС) при помощи алгоритма Тарьяна')
             answer, answer_time = tarjan(graph)
-            print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]))
+            print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]), sep='')
             print(f'Время выполнения алгоритма: {answer_time} мс.')
             print()
     except RecursionError:
         print('Граф слишком большой!')
     
     input('Для выхода нажмите Enter')
+
+if __name__ == '__main__':
+    sys.setrecursionlimit(10 ** 9)
+    threading.stack_size(10 ** 8)
+
+    thread = threading.Thread(target=main)
+    thread.start()
+    thread.join()
