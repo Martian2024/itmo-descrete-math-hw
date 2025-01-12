@@ -23,25 +23,25 @@ if __name__ == '__main__':
     if prefered_algorithm == 'b':
         print('Поиск Компонент Сильной Связности (КСС) при помощи алгоритма Тарьяна')
         answer, answer_time = tarjan(graph)
-        print('Список компонент связности:', answer)
+        print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]))
         print(f'Время выполнения алгоритма: {answer_time} мс.')
         print()
 
         print('Поиск Компонент Сильной Связности (КСС) при помощи алгоритма Косарайю')
         answer, answer_time = kosaraju(graph)
-        print('Список компонент связности:', answer)
+        print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]))
         print(f'Время выполнения алгоритма: {answer_time} мс.')
         print()
     elif prefered_algorithm == 'k':
         print('Поиск Компонент Сильной Связности (КСС) при помощи алгоритма Косарайю')
         answer, answer_time = kosaraju(graph)
-        print('Список компонент связности:', answer)
+        print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]))
         print(f'Время выполнения алгоритма: {answer_time} мс.')
         print()
     elif prefered_algorithm == 't':
         print('Поиск Компонент Сильной Связности (КСС) при помощи алгоритма Тарьяна')
         answer, answer_time = tarjan(graph)
-        print('Список компонент связности:', answer)
+        print('Список компонент связности:\n', '\n'.join([f'КСС-{i + 1}: ' + ', '.join(answer[i]) for i in range(len(answer))]))
         print(f'Время выполнения алгоритма: {answer_time} мс.')
         print()
     
